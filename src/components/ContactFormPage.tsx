@@ -1,36 +1,59 @@
 "use client";
 import React from "react";
-import { Form } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormMessage } from "./ui/form";
+import { useForm, useWatch, Control } from "react-hook-form";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { form } from "@/validation/test";
+import { test } from "@/validation/test";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+type FormValues = {
+  fullName: string;
+  email: string;
+};
 
 const ContactFormPage = () => {
+  const form = useForm({
+    resolver: zodResolver(test),
+    defaultValues: {
+      fullname: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = () => {};
+
   return (
-    <div>
-      <Form>
-        <form onSubmit={form.handleSubmit(submit)} className="">
-          <FormField name={"name"} control={form.control}>
-            <FormControl>
-              <FormItem>
-                <Input placeholder="Name" {...field} />
-                <FormMessage />
-              </FormItem>
-            </FormControl>
-          </FormField>
-          <FormField name={"name"} control={form.control}>
-            <FormControl>
-              <FormItem>
-                <Input placeholder="Email" {...field} />
-                <FormMessage />
-              </FormItem>
-            </FormControl>
-          </FormField>
-          <Button type={"submit"}> Submit</Button>
-        </form>
-      </Form>
-    </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+          {...control("form.control")}
+          Fullname="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormDescription>
+                This is your public display name.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 };
 
