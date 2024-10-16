@@ -3,6 +3,8 @@ import React from "react";
 import { useContactForm } from "@/hooks/useContactForm";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Textarea } from "@/components/ui/textarea";
+
 import {
   Form,
   FormControl,
@@ -29,7 +31,7 @@ const ContactFormPage = () => {
     <>
       <div className="flex justify-center items-center pt-72">
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 w-96">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-96">
             {/* Fullname field */}
             <FormField
               name="fullname"
@@ -68,7 +70,12 @@ const ContactFormPage = () => {
                 <FormItem>
                   <FormLabel>Message</FormLabel>
                   <FormControl>
-                    <Input placeholder="Your message" {...field} />
+                    <Textarea
+                      placeholder="Your message"
+                      {...field}
+                      className="w-96"
+                      rows={4}
+                    />
                   </FormControl>
                   <FormMessage>{errors.message?.message}</FormMessage>
                 </FormItem>
