@@ -29,9 +29,12 @@ const ContactFormPage = () => {
   };
   return (
     <>
-      <div className="flex justify-center items-center pt-72">
+      <div className="flex justify-center items-center  pt-60 sm:pt-72 ">
         <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 w-96">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-6 w-80 sm:w-96"
+          >
             {/* Fullname field */}
             <FormField
               name="fullname"
@@ -73,7 +76,7 @@ const ContactFormPage = () => {
                     <Textarea
                       placeholder="Your message"
                       {...field}
-                      className="w-96"
+                      className="w-80 sm:w-96"
                       rows={4}
                     />
                   </FormControl>
