@@ -1,10 +1,8 @@
 "use client";
 import React from "react";
-import { useForm, Control } from "react-hook-form";
+import { useContactForm } from "@/hooks/useContactForm";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
@@ -15,35 +13,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const formSchema = z.object({
-  fullname: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
-  email: z.string().email(),
-  message: z.string(),
-});
-
-interface FormValues {
-  message: string;
-  fullname: string;
-  email: string;
-}
 const ContactFormPage = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullname: "",
-      email: "",
-      message: "",
-    },
-  });
-
+  // Using the custom hook
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
-  const onSubmit = () => {};
+  } = useContactForm();
+  const form = useContactForm();
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
   return (
     <>
       <div className="flex justify-center items-center pt-72">
